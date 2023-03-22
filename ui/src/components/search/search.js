@@ -6,7 +6,8 @@ function Search() {
 
     const [items, setItems] = useState([]);
     const [iPDF, setPDF] = useState([]);
-    const [query, setQuery] = useState("")
+    const [query, setQuery] = useState("");
+      const [exist, setExist] = useState(true);
 
     const Geter = useCallback(async () => {
 
@@ -18,12 +19,13 @@ function Search() {
                     (result) => {
 
                         setItems(result);
+                        setExist(true);
                     }
                 )
 
         }
         else {
-             setItems([{"_id":"1","Date":"2023-10-02T19:00:00.000Z","Email":["1"],"Name":undefined,"Patronomic":undefined,"Quantum":["1"],"Surname":undefined}])
+            setExist(false);
         }
 
     })
@@ -46,19 +48,30 @@ function Search() {
                     <input className="search-button" type={'button'} name="Search" value={'Найти'} key={'Search123'} id={'Search123'} onClick={Geter} />
                 </span>
             </form>
-            {items.map((item, i) => (
-                <div id={item._id}>
-                    <List
-                        key={i}
-                        name={item.Name}
-                        patronomic={item.Patronomic}
-                        surname={item.Surname}
-                        date={item.Date}
-                        quantum={item.Quantum}      
-                        PDD={(obj) => { itmePDF(item) }}
-                    />
-                </div>
-            ))}
+           {
+                exist ? (
+                    <div>
+                        {items.map((item, i) => (
+                            <div id={item._id}>
+                                <List
+                                    key={i}
+                                    name={item.Name}
+                                    patronomic={item.Patronomic}
+                                    surname={item.Surname}
+                                    date={item.Date}
+                                    quantum={item.Quantum}
+                                    PDD={(obj) => { itmePDF(item) }}
+                                />
+                            </div>
+                        ))}
+                    </div>
+                ):
+                (
+                    <div>
+                        <a>Такой почты не существует</a>
+                    </div>
+                )
+            }
         </div>
     );
 
