@@ -5,8 +5,7 @@ import UserController from '../controllers/UserController.js';
 
 const route = express.Router();
 
-
-route.get('/Email/', EmailController.getAll);
+//route.get('/Email/', EmailController.getAll);
 route.get('/Email/:Title',EmailController.getOne)
 
 
