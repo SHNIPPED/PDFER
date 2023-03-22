@@ -47,24 +47,15 @@ function List({ name, surname, patronomic,PDD,  date, quantum }) {
         doc.save("sertificate.pdf")
     }
 
-    if (name === undefined) {
-       return(
+  return (
         <div>
-            <a>Такой почты не существует</a>
+            <ul className="list" >
+                <li className="list-item" >{name + "  " + surname + "  " + patronomic}
+                    <button className="list-button" onClick={() => PDF()}>Вывести</button>
+                </li>
+            </ul>
         </div>
-       )
-    }
-    else {
-        return (
-            <div>
-                <ul className="list" >
-                    <li className="list-item" >{name + "  " + surname + "  " + patronomic}
-                        <button className="list-button" onClick={() => PDF()}>Вывести</button>
-                    </li>
-                </ul>
-            </div>
-        );
-    }
+    );
 }
 
 export default List
