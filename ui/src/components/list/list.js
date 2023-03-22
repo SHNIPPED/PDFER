@@ -5,7 +5,7 @@ import Values from '../Values';
 
 function List({ name, surname, patronomic,PDD,  date, quantum }) {
 
-    let quantumTitle
+    let [title, setTitle] = React.useState(null);
 
     const getTitle = useCallback(async (_quantum) => {
 
@@ -15,7 +15,7 @@ function List({ name, surname, patronomic,PDD,  date, quantum }) {
                 .then(res => res.json())
                 .then(
                     (result) => {
-                        quantumTitle=result
+                        setTitle(title = result)
                     }
                 )
         }
@@ -37,7 +37,7 @@ function List({ name, surname, patronomic,PDD,  date, quantum }) {
         doc.text('Настоящим подтверждается, что', 91, 80)
         doc.text(`${name} ${surname} ${patronomic}`, 148, 95, { align: 'center' })
         doc.text('прошёл обучение по направлению', 89, 110)
-        doc.text(`${quantumTitle.Title}`,89,125)
+        doc.text(`${title.Title}`,89,125)
         doc.text(`в объёме 64 часа`,149,140, { align: 'center' })
         doc.setFontSize(15);
         console.log(date.toString());
@@ -47,8 +47,12 @@ function List({ name, surname, patronomic,PDD,  date, quantum }) {
         doc.save("sertificate.pdf")
     }
 
-    if (name === undefined || surname === undefined || patronomic === undefined) {
-        return null
+    if (name === undefined) {
+       return(
+        <div>
+            <a>Такой почты не существует</a>
+        </div>
+       )
     }
     else {
         return (
