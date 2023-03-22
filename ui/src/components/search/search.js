@@ -11,7 +11,7 @@ function Search() {
     const Geter = useCallback(async () => {
 
         let responces = await fetch(`http://localhost:3300/Email/${query}`)
-        if (responces.ok) {
+        if (responces.status === 200) {
             fetch(`http://localhost:3300/Email/${query}`)
                 .then(res => res.json())
                 .then(
@@ -23,14 +23,7 @@ function Search() {
 
         }
         else {
-            fetch(`http://localhost:3300/Email/`)
-                .then(res => res.json())
-                .then(
-                    (result) => {
-
-                        setItems(result);
-                    }
-                )
+             setItems([{"_id":"1","Date":"2023-10-02T19:00:00.000Z","Email":["1"],"Name":undefined,"Patronomic":undefined,"Quantum":["1"],"Surname":undefined}])
         }
 
     })
